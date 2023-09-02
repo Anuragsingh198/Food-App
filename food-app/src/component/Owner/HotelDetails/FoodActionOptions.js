@@ -1,0 +1,60 @@
+import React, { useContext, useState } from 'react'
+import ClientContext from '../../../store/AuthClient'
+import OwnerContext from '../../../store/AuthOwner'
+import { useParams } from 'react-router-dom'
+import './FoodActionOptions.css'
+function FoodActionOptions(props) {
+  const Params=useParams();
+    const clientctx=useContext(ClientContext);
+    const ownerCtx=useContext(OwnerContext);
+    const [itemCount,SetItemCount]=useState(1);
+    const SetCountFunc=(event)=>{
+         SetItemCount(event.target.value)
+    }
+   const FoddDeleteFunc=(event)=>{
+     event.preventDefault();
+     async function DeleteFoodItem()
+     {
+      console.log('fbsivifsvs')
+      const data=await fetch(`http://localhost:4000/${Params.hotelid}/deleteitem`,{
+        method:'POST',
+        body:JSON.stringify({
+            foodname:props.item,
+            foodcategory:props.Name,
+                }),  
+     headers:{"Content-type":"application/json"},
+     })
+     const js= await data.json();
+     if(js.status==='200')
+     {
+     window.location.reload();
+     }
+     }
+     DeleteFoodItem();
+   }
+   const SubmittoCart=(event)=>{
+    event.preventDefault();
+    const data={
+      hotelname:props.Name,
+      Quantity:itemCount,
+      Price:props.Price,
+      FoodName:props.item,
+    }
+    props.func(data);
+   }
+  return (
+    <>
+    {clientctx.isAuth&&
+        <form className='FoodItem-Form'  onSubmit={SubmittoCart} >
+            <input type="number" value={itemCount} onChange={SetCountFunc}></input>
+            <button type='submit'>ADD</button>
+        </form>}
+        {ownerCtx.isAuth&&
+        <form className='FoodItem-Form' onSubmit={FoddDeleteFunc}>
+            <button type='submit'>Delete</button>
+        </form>}
+    </>
+  )
+}
+
+export default FoodActionOptions

@@ -1,0 +1,11 @@
+.Food-Type-Logo{
+    position: relative;
+    width: 20px;
+    height: 20+px;
+}
+.Food-Type-Logo img{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    background-repeat: cover;
+}
