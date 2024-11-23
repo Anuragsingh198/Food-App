@@ -42,7 +42,7 @@ function App() {
             <Route index element={<HotelDetails />} />
             <Route path='adddish' element={<OwnerAddDish />} />
             <Route path='addcategory' element={<OwnerAddCategories />} />
-           
+  
           </Route>
         </Route>
 

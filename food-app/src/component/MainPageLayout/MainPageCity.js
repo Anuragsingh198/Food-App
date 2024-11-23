@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 function MainPageCity(props) {
     const [name,setName]=useState('>')
     const location=useLocation();
-const path=location.pathname;
+const path = location.pathname;
 const Navigate=useNavigate();
     const SubmitLocationData=(event)=>{
         event.preventDefault();
